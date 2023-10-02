@@ -3,6 +3,8 @@ import {PreloadArguments, WindowType} from "./Arguments";
 import DatabaseClientWindow from "./DatabaseClientWindow";
 import MainWindow from "./MainWindow";
 
+import '@fontsource/inter';
+
 const App: React.FC = () => {
     const [data, setData] = useState<PreloadArguments | null>(null);
 
