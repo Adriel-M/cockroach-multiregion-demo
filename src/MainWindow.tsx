@@ -10,6 +10,10 @@ import {
 
 import map from "../assets/map.png";
 
+const openNewDatabaseClientWindow = () => {
+  window.openNewWindow.databaseClient();
+};
+
 const MainWindow: React.FC = () => {
   return (
     <Sheet>
@@ -29,6 +33,7 @@ const MainWindow: React.FC = () => {
             color="primary"
             aria-label="New Client"
             sx={{ ml: "auto", alignSelf: "center", fontWeight: 600 }}
+            onClick={openNewDatabaseClientWindow}
           >
             Click Me!
           </Button>
