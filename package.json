@@ -9,7 +9,8 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "lint": "eslint --ext .ts,.tsx .",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "adriel",
@@ -24,13 +25,18 @@
     "@electron-forge/plugin-vite": "^6.4.2",
     "@types/react": "^18.2.23",
     "@types/react-dom": "^18.2.8",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
     "electron": "26.2.3",
-    "eslint": "^8.0.1",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.25.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "prettier": "3.0.3",
     "ts-node": "^10.0.0",
-    "typescript": "~4.5.4"
+    "typescript": "^5.2.2"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -41,5 +47,10 @@
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
+  },
+  "lint-staged": {
+    "**/*.ts": "eslint --fix",
+    "**/*.tsx": "eslint --fix",
+    "**/*.json": "eslint --fix"
   }
 }

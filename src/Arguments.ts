@@ -1,8 +1,8 @@
 export enum WindowType {
-    empty,
-    Main,
-    DatabaseClient,
+  empty,
+  Main,
+  DatabaseClient,
 }
 export interface PreloadArguments {
-    windowType: WindowType,
+  windowType: WindowType;
 }
