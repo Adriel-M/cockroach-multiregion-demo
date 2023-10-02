@@ -26,4 +26,6 @@
  * ```
  */
 
-import './App';
+import RenderApp from './RenderApp';
+
+RenderApp();

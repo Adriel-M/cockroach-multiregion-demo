@@ -1,5 +1,6 @@
-import { app, BrowserWindow } from 'electron';
+import {app, BrowserWindow} from 'electron';
 import path from 'path';
+import {PreloadArguments, WindowType} from "./Arguments";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -13,6 +14,8 @@ const createWindow = () => {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+      contextIsolation: true,
+      nodeIntegration: true,
     },
   });
 
@@ -25,6 +28,14 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  const args: PreloadArguments = {
+    windowType: WindowType.Main,
+  };
+
+  mainWindow.webContents.on('did-finish-load', () => {
+    mainWindow.webContents.send('preload-args', args);
+  });
 };
 
 // This method will be called when Electron has finished
