@@ -4,6 +4,7 @@ import DatabaseClientWindow from "./DatabaseClientWindow";
 import MainWindow from "./MainWindow";
 
 import "@fontsource/inter";
+import { CircularProgress, CssVarsProvider, Sheet } from "@mui/joy";
 
 const App: React.FC = () => {
   const [data, setData] = useState<PreloadArguments | null>(null);
@@ -18,18 +19,21 @@ const App: React.FC = () => {
     };
   }, []);
 
-  // Setting up
-  if (!data || !data.windowType) {
-    return <h2>Loading...</h2>;
+  let child = <CircularProgress />;
+
+  if (data && data.windowType) {
+    if (data.windowType == WindowType.Main) {
+      child = <MainWindow />;
+    } else {
+      child = <DatabaseClientWindow />;
+    }
   }
 
-  // We're the root window
-  if (data.windowType == WindowType.Main) {
-    return <MainWindow />;
-  }
-
-  // We are the DatabaseClientWindow
-  return <DatabaseClientWindow />;
+  return (
+    <CssVarsProvider>
+      <Sheet>{child}</Sheet>
+    </CssVarsProvider>
+  );
 };
 
 export default App;
