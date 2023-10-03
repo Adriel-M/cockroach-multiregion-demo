@@ -3,6 +3,3 @@ export enum WindowType {
   Main,
   DatabaseClient,
 }
-export interface PreloadArguments {
-  windowType: WindowType;
-}

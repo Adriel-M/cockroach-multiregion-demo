@@ -10,10 +10,6 @@ import {
 
 import map from "../assets/map.png";
 
-const openNewDatabaseClientWindow = () => {
-  window.openNewWindow.databaseClient();
-};
-
 const MainWindow: React.FC = () => {
   return (
     <Sheet>
@@ -41,6 +37,20 @@ const MainWindow: React.FC = () => {
       </Card>
     </Sheet>
   );
+};
+
+interface OpenNewWindow {
+  databaseClient: () => void;
+}
+
+declare global {
+  interface Window {
+    openNewWindow: OpenNewWindow;
+  }
+}
+
+const openNewDatabaseClientWindow = () => {
+  window.openNewWindow.databaseClient();
 };
 
 export default MainWindow;

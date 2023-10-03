@@ -1,32 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { PreloadArguments, WindowType } from "./Arguments";
+import { WindowType } from "./Arguments";
 import DatabaseClientWindow from "./DatabaseClientWindow";
 import MainWindow from "./MainWindow";
 
 import "@fontsource/inter";
 import { CircularProgress, CssVarsProvider, Sheet } from "@mui/joy";
 
+interface AppInfo {
+  windowType: WindowType;
+}
+
+declare global {
+  interface Window {
+    appInfo: AppInfo;
+  }
+}
+
 const App: React.FC = () => {
-  const [data, setData] = useState<PreloadArguments | null>(null);
+  const [windowType, setWindowType] = useState<WindowType | null>(null);
 
   useEffect(() => {
-    window.preloadArgs.receiveData((preloadArguments: PreloadArguments) => {
-      setData(preloadArguments);
-    });
-
-    return () => {
-      window.preloadArgs.receiveData(null);
-    };
+    setWindowType(window.appInfo.windowType);
   }, []);
 
   let child = <CircularProgress />;
 
-  if (data && data.windowType) {
-    if (data.windowType == WindowType.Main) {
-      child = <MainWindow />;
-    } else {
-      child = <DatabaseClientWindow />;
-    }
+  if (windowType == WindowType.Main) {
+    child = <MainWindow />;
+  } else if (windowType === WindowType.DatabaseClient) {
+    child = <DatabaseClientWindow />;
   }
 
   return (
