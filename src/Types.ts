@@ -3,3 +3,8 @@ export interface ConnectionInfo {
   host: string;
   port: number;
 }
+
+export interface ColorRow {
+  id: number;
+  color: string;
+}

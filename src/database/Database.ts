@@ -6,8 +6,9 @@ const knex = require("knex");
 
 // This is an import to support types when instantiating from the require above.
 import { Knex } from "knex";
+import Queries from "./Queries";
 
-const DELAY_MS_BETWEEN_CALLS = 1000;
+const DELAY_MS_BETWEEN_CALLS = 100;
 
 class Database {
   readonly connectionInfo: ConnectionInfo;
@@ -43,8 +44,11 @@ class Database {
 
   private async pollingTick() {
     if (this.started) {
-      const test = await this.knex("color").first();
-      console.log(test);
+      const startTime = performance.now();
+      const colorRow = await Queries.getColorRow(this.knex, true);
+      const endTime = performance.now();
+      console.log(colorRow);
+      console.log(`Query took ${endTime - startTime}ms`);
       this.runPollingTick();
     }
   }
@@ -52,6 +56,7 @@ class Database {
   async stop() {
     this.started = false;
     clearTimeout(this.pollingFunction);
+    await this.knex.destroy();
   }
 }
 
