@@ -1,14 +1,17 @@
 [
   {
     "region": "us-east-1",
-    "url": "localhost:8000"
+    "host": "127.0.0.1",
+    "port": 26265
   },
   {
-    "region": "us-east-2",
-    "url": "localhost:8001"
+    "region": "us-west-1",
+    "host": "127.0.0.1",
+    "port": 26264
   },
   {
     "region": "eu-central-1",
-    "url": "localhost:8002"
+    "host": "127.0.0.1",
+    "port": 26263
   }
 ]

@@ -19,8 +19,12 @@ const ConnectionSelector: React.FC<Props> = ({ onConnectionInfoSelect }) => {
           onConnectionInfoSelect(newValue)
         }
       >
-        {connectionInfo.map((info: ConnectionInfo) => {
-          return <Option value={info}>{info.region}</Option>;
+        {connectionInfo.map((info: ConnectionInfo, index: number) => {
+          return (
+            <Option value={info} key={index}>
+              {info.region}
+            </Option>
+          );
         })}
       </Select>
     </Card>

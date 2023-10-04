@@ -1,4 +1,5 @@
 export interface ConnectionInfo {
   region: string;
-  url: string;
+  host: string;
+  port: number;
 }

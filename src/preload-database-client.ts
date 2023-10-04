@@ -3,7 +3,23 @@
 
 import { contextBridge } from "electron";
 import { WindowType } from "./Arguments";
+import Database from "./database/Database";
+import { ConnectionInfo } from "./Types";
 
 contextBridge.exposeInMainWorld("appInfo", {
   windowType: WindowType.DatabaseClient,
+});
+
+let database: Database | null = null;
+
+contextBridge.exposeInMainWorld("databaseApi", {
+  connectAndStartPolling: async (connectionInfo: ConnectionInfo | null) => {
+    if (database && database.connectionInfo !== connectionInfo) {
+      await database.stop();
+    }
+    if (connectionInfo) {
+      database = new Database(connectionInfo);
+      await database.start();
+    }
+  },
 });

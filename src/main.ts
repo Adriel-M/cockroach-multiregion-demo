@@ -42,6 +42,12 @@ const createWindow = (windowType: AppWindowType) => {
     preloadFileWatcher.close();
   });
 
+  if (windowType === AppWindowType.Main) {
+    appWindow.on("close", () => {
+      app.quit();
+    });
+  }
+
   // Open the DevTools.
   appWindow.webContents.openDevTools();
 };
@@ -59,14 +65,6 @@ app.on("ready", () => {
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
-  }
-});
-
-app.on("activate", () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow(AppWindowType.Main);
   }
 });
 
