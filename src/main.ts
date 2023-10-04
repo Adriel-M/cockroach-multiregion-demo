@@ -1,6 +1,6 @@
 import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
-import IpcEvents from "./IpcEvents";
+import Events from "./Events";
 import * as fs from "fs";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -71,7 +71,7 @@ app.on("window-all-closed", () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-ipcMain.on(IpcEvents.newDatabaseClientWindow, () => {
+ipcMain.on(Events.newDatabaseClientWindow, () => {
   createWindow(AppWindowType.DatabaseClient);
 });
 

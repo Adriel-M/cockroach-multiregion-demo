@@ -15,6 +15,10 @@ class Queries {
     const results: { rows: ColorRow[] } = await knex.raw(query);
     return results.rows[0] ?? null;
   };
+
+  updateColor = async (knex: Knex, color: string): Promise<void> => {
+    await knex("color").update({ color });
+  };
 }
 
 export default new Queries();

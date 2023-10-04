@@ -2,16 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Sheet, Stack } from "@mui/joy";
 import { ConnectionInfo } from "./Types";
 import ConnectionSelector from "./ConnectionSelector";
-
-interface DatabaseApi {
-  connectAndStartPolling: (connectionUrl: ConnectionInfo | null) => void;
-}
-
-declare global {
-  interface Window {
-    databaseApi: DatabaseApi;
-  }
-}
+import ColorSelector from "./ColorSelector";
+import ColorDisplay from "./ColorDisplay";
 
 const DatabaseClientWindow: React.FC = () => {
   const [connectionInfo, setConnectionInfo] = useState<ConnectionInfo | null>(
@@ -26,6 +18,12 @@ const DatabaseClientWindow: React.FC = () => {
     <Sheet>
       <Stack>
         <ConnectionSelector onConnectionInfoSelect={setConnectionInfo} />
+        {connectionInfo ? (
+          <>
+            <ColorDisplay />
+            <ColorSelector />
+          </>
+        ) : null}
         <div>Current Connection Url: {connectionInfo?.port}</div>
       </Stack>
     </Sheet>

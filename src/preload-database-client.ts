@@ -6,6 +6,18 @@ import { WindowType } from "./Arguments";
 import Database from "./database/Database";
 import { ConnectionInfo } from "./Types";
 
+interface DatabaseApi {
+  connectAndStartPolling: (connectionUrl: ConnectionInfo | null) => void;
+  updateColor: (color: string) => void;
+  subscribeToColor: (callback: (color: string) => void) => void;
+}
+
+declare global {
+  interface Window {
+    databaseApi: DatabaseApi;
+  }
+}
+
 contextBridge.exposeInMainWorld("appInfo", {
   windowType: WindowType.DatabaseClient,
 });
@@ -20,6 +32,11 @@ contextBridge.exposeInMainWorld("databaseApi", {
     if (connectionInfo) {
       database = new Database(connectionInfo);
       await database.start();
+    }
+  },
+  updateColor: async (color: string) => {
+    if (database) {
+      await database.updateColor(color);
     }
   },
 });
