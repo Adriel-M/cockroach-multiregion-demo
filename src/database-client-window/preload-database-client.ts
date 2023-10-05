@@ -2,9 +2,8 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 
 import { contextBridge } from "electron";
-import { WindowType } from "./Arguments";
-import Database from "./database/Database";
-import { ConnectionInfo } from "./Types";
+import Database from "../database/Database";
+import { ConnectionInfo, WindowType } from "../Types";
 
 interface DatabaseApi {
   connectAndStartPolling: (connectionUrl: ConnectionInfo | null) => void;

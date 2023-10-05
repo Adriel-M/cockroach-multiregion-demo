@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Sheet, Stack } from "@mui/joy";
-import { ConnectionInfo } from "./Types";
+import { ConnectionInfo } from "../Types";
 import ConnectionSelector from "./ConnectionSelector";
 import ColorSelector from "./ColorSelector";
 import ColorDisplay from "./ColorDisplay";

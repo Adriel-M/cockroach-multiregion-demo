@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/joy";
 
-import map from "../assets/map.png";
+import map from "../../assets/map.png";
 
 const MainWindow: React.FC = () => {
   return (
@@ -16,7 +16,6 @@ const MainWindow: React.FC = () => {
       <Card>
         <Typography level="title-lg">Cockroach Mutli Region demo!</Typography>
         <AspectRatio minHeight="120px" maxHeight="200px">
-          {/* Add cockroach image */}
           <img src={map} loading="lazy" alt="" />
         </AspectRatio>
         <CardContent orientation="horizontal">

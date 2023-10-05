@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { WindowType } from "./Arguments";
-import DatabaseClientWindow from "./DatabaseClientWindow";
-import MainWindow from "./MainWindow";
+import { WindowType } from "./Types";
 
 import "@fontsource/inter";
 import { CircularProgress, CssVarsProvider, Sheet } from "@mui/joy";
+import MainWindow from "./main-window/MainWindow";
+import DatabaseClientWindow from "./database-client-window/DatabaseClientWindow";
 
 interface AppInfo {
   windowType: WindowType;

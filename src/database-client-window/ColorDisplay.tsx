@@ -1,6 +1,6 @@
 import { Card, Grid, Typography } from "@mui/joy";
 import React, { useEffect, useState } from "react";
-import Events from "./Events";
+import Events from "../Events";
 
 const joyColorToLabel: Record<string, string> = {
   primary: "Blue",

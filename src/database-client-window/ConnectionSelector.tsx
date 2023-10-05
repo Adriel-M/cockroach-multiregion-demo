@@ -1,8 +1,8 @@
-import { ConnectionInfo } from "./Types";
+import { ConnectionInfo } from "../Types";
 import React from "react";
 import { Card, Select, Typography, Option } from "@mui/joy";
 
-import connectionInfo from "./connectionInfo.json";
+import connectionInfo from "../connectionInfo.json";
 
 interface Props {
   onConnectionInfoSelect: (connectionInfo: ConnectionInfo | null) => void;

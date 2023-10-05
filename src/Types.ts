@@ -8,3 +8,9 @@ export interface ColorRow {
   id: number;
   color: string;
 }
+
+export enum WindowType {
+  empty,
+  Main,
+  DatabaseClient,
+}

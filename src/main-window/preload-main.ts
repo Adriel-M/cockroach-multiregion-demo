@@ -2,8 +2,8 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 
 import { contextBridge, ipcRenderer } from "electron";
-import { WindowType } from "./Arguments";
-import Events from "./Events";
+import { WindowType } from "../Types";
+import Events from "../Events";
 
 contextBridge.exposeInMainWorld("appInfo", {
   windowType: WindowType.Main,
