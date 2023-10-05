@@ -11,7 +11,7 @@ const joyColorToLabel: Record<string, string> = {
 
 const ColorDisplay: React.FC = () => {
   const [currentColor, setCurrentColor] = useState<string | null>(null);
-  const handler = (event: CustomEvent<string | null>) => {
+  const handler = (event: ColorChangedEvent) => {
     setCurrentColor(event.detail);
   };
   useEffect(() => {

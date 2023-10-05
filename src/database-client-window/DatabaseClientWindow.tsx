@@ -4,6 +4,7 @@ import { ConnectionInfo } from "../Types";
 import ConnectionSelector from "./ConnectionSelector";
 import ColorSelector from "./ColorSelector";
 import ColorDisplay from "./ColorDisplay";
+import QueryMetrics from "./QueryMetrics";
 
 const DatabaseClientWindow: React.FC = () => {
   const [connectionInfo, setConnectionInfo] = useState<ConnectionInfo | null>(
@@ -22,6 +23,7 @@ const DatabaseClientWindow: React.FC = () => {
           <>
             <ColorDisplay />
             <ColorSelector />
+            <QueryMetrics />
           </>
         ) : null}
         <div>Current Connection Url: {connectionInfo?.port}</div>

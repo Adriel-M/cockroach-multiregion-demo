@@ -8,7 +8,7 @@ const knex = require("knex");
 import { Knex } from "knex";
 import Queries from "./Queries";
 import { dispatchEvent } from "../events/EventApi";
-import { ColorChangedEvent } from "../events/CustomEvents";
+import { ColorChangedEvent, SelectLatencyEvent } from "../events/CustomEvents";
 
 const DELAY_MS_BETWEEN_CALLS = 100;
 
@@ -46,8 +46,11 @@ class Database {
 
   private async pollingTick() {
     if (this.started) {
+      const startTime = performance.now();
       const colorRow = await Queries.getColorRow(this.knex, false);
+      const endTime = performance.now();
       dispatchEvent(new ColorChangedEvent(colorRow?.color));
+      dispatchEvent(new SelectLatencyEvent(endTime - startTime));
       this.runPollingTick();
     }
   }
