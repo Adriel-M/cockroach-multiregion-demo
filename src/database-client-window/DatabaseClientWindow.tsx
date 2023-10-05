@@ -21,7 +21,7 @@ const DatabaseClientWindow: React.FC = () => {
     window.databaseApi.connectAndStartPolling(connectionInfo);
   }, [connectionInfo]);
 
-  const followerReadChangeHandler = useCallback(
+  const followerReadChangedEventHandler = useCallback(
     (event: FollowerReadChangedEvent) => {
       setIsFollowerReadsEnabled(event.detail);
     },
@@ -29,12 +29,15 @@ const DatabaseClientWindow: React.FC = () => {
   );
 
   useEffect(() => {
-    addEventListener(FollowerReadChangedEvent, followerReadChangeHandler);
+    addEventListener(FollowerReadChangedEvent, followerReadChangedEventHandler);
 
     return () => {
-      removeEventListener(FollowerReadChangedEvent, followerReadChangeHandler);
+      removeEventListener(
+        FollowerReadChangedEvent,
+        followerReadChangedEventHandler,
+      );
     };
-  }, [followerReadChangeHandler]);
+  }, [followerReadChangedEventHandler]);
 
   return (
     <Sheet>

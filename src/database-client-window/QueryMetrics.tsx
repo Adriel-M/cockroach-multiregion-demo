@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { AspectRatio, Card, Grid, Typography } from "@mui/joy";
 import { SelectLatencyEvent } from "../events/CustomEvents";
 import { addEventListener, removeEventListener } from "../events/EventApi";
 
 const QueryMetrics: React.FC = () => {
   const [pollLatency, setPollLatency] = useState<number | null>(null);
-  const handler = (event: SelectLatencyEvent) => {
-    setPollLatency(event.detail);
-  };
+  const searchLatencyEventHandler = useCallback(
+    (event: SelectLatencyEvent) => {
+      setPollLatency(event.detail);
+    },
+    [setPollLatency],
+  );
   useEffect(() => {
-    addEventListener(SelectLatencyEvent, handler);
+    addEventListener(SelectLatencyEvent, searchLatencyEventHandler);
     return () => {
-      removeEventListener(SelectLatencyEvent, handler);
+      removeEventListener(SelectLatencyEvent, searchLatencyEventHandler);
     };
   }, []);
   return (

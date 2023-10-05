@@ -1,5 +1,5 @@
 import { Card, Grid, Typography } from "@mui/joy";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { addEventListener, removeEventListener } from "../events/EventApi";
 import { ColorChangedEvent } from "../events/CustomEvents";
 
@@ -11,15 +11,18 @@ const joyColorToLabel: Record<string, string> = {
 
 const ColorDisplay: React.FC = () => {
   const [currentColor, setCurrentColor] = useState<string | null>(null);
-  const handler = (event: ColorChangedEvent) => {
-    setCurrentColor(event.detail);
-  };
+  const colorChangedEventHandler = useCallback(
+    (event: ColorChangedEvent) => {
+      setCurrentColor(event.detail);
+    },
+    [setCurrentColor],
+  );
   useEffect(() => {
-    addEventListener(ColorChangedEvent, handler);
+    addEventListener(ColorChangedEvent, colorChangedEventHandler);
     return () => {
-      removeEventListener(ColorChangedEvent, handler);
+      removeEventListener(ColorChangedEvent, colorChangedEventHandler);
     };
-  }, []);
+  }, [colorChangedEventHandler]);
   return (
     <Card>
       <Typography level="h1">The Current Color is</Typography>
