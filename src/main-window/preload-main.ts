@@ -3,7 +3,7 @@
 
 import { contextBridge, ipcRenderer } from "electron";
 import { WindowType } from "../Types";
-import Events from "../Events";
+import IpcChannels from "../IpcChannels";
 
 contextBridge.exposeInMainWorld("appInfo", {
   windowType: WindowType.Main,
@@ -11,6 +11,6 @@ contextBridge.exposeInMainWorld("appInfo", {
 
 contextBridge.exposeInMainWorld("openNewWindow", {
   databaseClient: () => {
-    ipcRenderer.send(Events.newDatabaseClientWindow);
+    ipcRenderer.send(IpcChannels.newDatabaseClientWindow);
   },
 });

@@ -1,6 +1,7 @@
 import { Card, Grid, Typography } from "@mui/joy";
 import React, { useEffect, useState } from "react";
-import Events from "../Events";
+import { addEventListener, removeEventListener } from "../events/EventApi";
+import { ColorChangedEvent } from "../events/CustomEvents";
 
 const joyColorToLabel: Record<string, string> = {
   primary: "Blue",
@@ -14,9 +15,9 @@ const ColorDisplay: React.FC = () => {
     setCurrentColor(event.detail);
   };
   useEffect(() => {
-    window.addEventListener(Events.colorChanged, handler);
+    addEventListener(ColorChangedEvent, handler);
     return () => {
-      window.removeEventListener(Events.colorChanged, handler);
+      removeEventListener(ColorChangedEvent, handler);
     };
   }, []);
   return (

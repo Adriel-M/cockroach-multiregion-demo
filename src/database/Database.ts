@@ -7,7 +7,8 @@ const knex = require("knex");
 // This is an import to support types when instantiating from the require above.
 import { Knex } from "knex";
 import Queries from "./Queries";
-import Events from "../Events";
+import { dispatchEvent } from "../events/EventApi";
+import { ColorChangedEvent } from "../events/CustomEvents";
 
 const DELAY_MS_BETWEEN_CALLS = 100;
 
@@ -46,9 +47,7 @@ class Database {
   private async pollingTick() {
     if (this.started) {
       const colorRow = await Queries.getColorRow(this.knex, false);
-      window.dispatchEvent(
-        new CustomEvent(Events.colorChanged, { detail: colorRow?.color }),
-      );
+      dispatchEvent(new ColorChangedEvent(colorRow?.color));
       this.runPollingTick();
     }
   }
