@@ -8,7 +8,11 @@ const knex = require("knex");
 import { Knex } from "knex";
 import Queries from "./Queries";
 import { dispatchEvent } from "../events/EventApi";
-import { ColorChangedEvent, SelectLatencyEvent } from "../events/CustomEvents";
+import {
+  ColorChangedEvent,
+  FollowerReadChangedEvent,
+  SelectLatencyEvent,
+} from "../events/CustomEvents";
 
 const DELAY_MS_BETWEEN_CALLS = 100;
 
@@ -16,7 +20,8 @@ class Database {
   readonly connectionInfo: ConnectionInfo;
   private started: boolean = false;
   private pollingFunction: NodeJS.Timeout | null = null;
-  private knex: Knex;
+  private readonly knex: Knex;
+  isFollowerReadsEnabled: boolean;
 
   constructor(connectionInfo: ConnectionInfo) {
     this.connectionInfo = connectionInfo;
@@ -30,6 +35,12 @@ class Database {
         ssl: false,
       },
     });
+    this.setFollowerReadsMode(false);
+  }
+
+  setFollowerReadsMode(isEnabled: boolean) {
+    this.isFollowerReadsEnabled = isEnabled;
+    dispatchEvent(new FollowerReadChangedEvent(isEnabled));
   }
 
   async start() {
@@ -47,7 +58,10 @@ class Database {
   private async pollingTick() {
     if (this.started) {
       const startTime = performance.now();
-      const colorRow = await Queries.getColorRow(this.knex, false);
+      const colorRow = await Queries.getColorRow(
+        this.knex,
+        this.isFollowerReadsEnabled,
+      );
       const endTime = performance.now();
       dispatchEvent(new ColorChangedEvent(colorRow?.color));
       dispatchEvent(new SelectLatencyEvent(endTime - startTime));

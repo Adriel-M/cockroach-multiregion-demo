@@ -2,6 +2,7 @@ export interface ConnectionInfo {
   region: string;
   host: string;
   port: number;
+  flag: string;
 }
 
 export interface ColorRow {

@@ -2,16 +2,19 @@
   {
     "region": "us-east-1",
     "host": "127.0.0.1",
-    "port": 26265
+    "port": 26257,
+    "flag": "\uD83C\uDDFA\uD83C\uDDF8"
   },
   {
     "region": "us-west-1",
     "host": "127.0.0.1",
-    "port": 26264
+    "port": 26262,
+    "flag": "\uD83C\uDDFA\uD83C\uDDF8"
   },
   {
-    "region": "eu-central-1",
+    "region": "eu-west-1",
     "host": "127.0.0.1",
-    "port": 26263
+    "port": 26263,
+    "flag": "\uD83C\uDDEA\uD83C\uDDFA"
   }
 ]

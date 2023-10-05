@@ -9,6 +9,7 @@ interface DatabaseApi {
   connectAndStartPolling: (connectionUrl: ConnectionInfo | null) => void;
   updateColor: (color: string) => void;
   subscribeToColor: (callback: (color: string) => void) => void;
+  toggleFollowerReads: () => void;
 }
 
 declare global {
@@ -36,6 +37,11 @@ contextBridge.exposeInMainWorld("databaseApi", {
   updateColor: async (color: string) => {
     if (database) {
       await database.updateColor(color);
+    }
+  },
+  toggleFollowerReads: () => {
+    if (database) {
+      database.setFollowerReadsMode(!database.isFollowerReadsEnabled);
     }
   },
 });
