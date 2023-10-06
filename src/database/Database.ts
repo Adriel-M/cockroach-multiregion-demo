@@ -12,7 +12,9 @@ import {
   ColorChangedEvent,
   FollowerReadChangedEvent,
   SelectLatencyEvent,
+  UpdateLatencyEvent,
 } from "../events/CustomEvents";
+import { measureTimeMillis } from "../Utils";
 
 const DELAY_MS_BETWEEN_CALLS = 100;
 
@@ -57,14 +59,14 @@ class Database {
 
   private async pollingTick() {
     if (this.started) {
-      const startTime = performance.now();
-      const colorRow = await Queries.getColorRow(
-        this.knex,
-        this.isFollowerReadsEnabled,
-      );
-      const endTime = performance.now();
+      const [colorRow, millis] = await measureTimeMillis(async () => {
+        return await Queries.getColorRow(
+          this.knex,
+          this.isFollowerReadsEnabled,
+        );
+      });
       dispatchEvent(new ColorChangedEvent(colorRow?.color));
-      dispatchEvent(new SelectLatencyEvent(endTime - startTime));
+      dispatchEvent(new SelectLatencyEvent(millis));
       this.runPollingTick();
     }
   }
@@ -76,7 +78,10 @@ class Database {
   }
 
   async updateColor(color: string) {
-    await Queries.updateColor(this.knex, color);
+    const [, millis] = await measureTimeMillis(async () => {
+      return await Queries.updateColor(this.knex, color);
+    });
+    dispatchEvent(new UpdateLatencyEvent(millis));
   }
 }
 

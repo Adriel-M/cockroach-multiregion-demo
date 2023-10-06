@@ -12,6 +12,13 @@ export class SelectLatencyEvent extends CustomEvent<number> {
   }
 }
 
+export class UpdateLatencyEvent extends CustomEvent<number> {
+  static channel = "update-latency";
+  constructor(latency: number) {
+    super(UpdateLatencyEvent.channel, { detail: latency });
+  }
+}
+
 export class FollowerReadChangedEvent extends CustomEvent<boolean> {
   static channel = "follower-read-changed";
   constructor(followerRead: boolean) {
