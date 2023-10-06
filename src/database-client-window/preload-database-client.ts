@@ -2,8 +2,8 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 
 import { contextBridge } from "electron";
-import Database from "../database/Database";
 import { ConnectionInfo, WindowType } from "../Types";
+import DatabaseClientDatabaseManager from "./DatabaseClientDatabaseManager";
 
 interface DatabaseApi {
   connectAndStartPolling: (connectionUrl: ConnectionInfo | null) => void;
@@ -22,26 +22,20 @@ contextBridge.exposeInMainWorld("appInfo", {
   windowType: WindowType.DatabaseClient,
 });
 
-let database: Database | null = null;
-
 contextBridge.exposeInMainWorld("databaseApi", {
   connectAndStartPolling: async (connectionInfo: ConnectionInfo | null) => {
-    if (database && database.connectionInfo !== connectionInfo) {
-      await database.stop();
-    }
     if (connectionInfo) {
-      database = new Database(connectionInfo);
-      await database.start();
+      await DatabaseClientDatabaseManager.setupAndStartDatabaseConnection(
+        connectionInfo,
+      );
+      DatabaseClientDatabaseManager.startColorPolling();
     }
   },
   updateColor: async (color: string) => {
-    if (database) {
-      await database.updateColor(color);
-    }
+    await DatabaseClientDatabaseManager.updateColor(color);
   },
+
   toggleFollowerReads: () => {
-    if (database) {
-      database.setFollowerReadsMode(!database.isFollowerReadsEnabled);
-    }
+    DatabaseClientDatabaseManager.toggleFollowerReads();
   },
 });
