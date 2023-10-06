@@ -2,9 +2,6 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import * as fs from "fs";
 import IpcChannels from "./IpcChannels";
-import DatabaseConnection from "./database/DatabaseConnection";
-
-import connectionInfo from "./connectionInfo.json";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -59,27 +56,6 @@ const createWindow = (windowType: AppWindowType) => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on("ready", async () => {
-  const databaseConnection = new DatabaseConnection(connectionInfo[0]);
-  await databaseConnection.knex.raw("DROP DATABASE IF EXISTS defaultdb");
-  await databaseConnection.knex.raw("CREATE DATABASE defaultdb");
-  await databaseConnection.knex.raw(
-    `ALTER DATABASE defaultdb PRIMARY REGION "us-west1"`,
-  );
-  await databaseConnection.knex.raw(
-    `ALTER DATABASE defaultdb ADD REGION "europe-west1"`,
-  );
-  await databaseConnection.knex.raw("DROP TABLE IF EXISTS color");
-  await databaseConnection.knex.raw(
-    `
-      CREATE TABLE color(
-          id INT PRIMARY KEY,
-          color VARCHAR(10) NOT NULL
-      );
-      `,
-  );
-  await databaseConnection.knex("color").insert({ id: 1, color: "primary" });
-
-  await databaseConnection.stop();
   createWindow(AppWindowType.Main);
 });
 

@@ -25,3 +25,10 @@ export class FollowerReadChangedEvent extends CustomEvent<boolean> {
     super(FollowerReadChangedEvent.channel, { detail: followerRead });
   }
 }
+
+export class DatabaseInitializedEvent extends CustomEvent<boolean> {
+  static channel = "database-initialized";
+  constructor(databaseInitialized: boolean) {
+    super(DatabaseInitializedEvent.channel, { detail: databaseInitialized });
+  }
+}
