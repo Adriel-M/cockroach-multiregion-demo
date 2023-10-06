@@ -5,9 +5,7 @@ import { contextBridge, ipcRenderer } from "electron";
 import { WindowType } from "../Types";
 import IpcChannels from "../IpcChannels";
 
-contextBridge.exposeInMainWorld("appInfo", {
-  windowType: WindowType.Main,
-});
+contextBridge.exposeInMainWorld("windowType", WindowType.Main);
 
 contextBridge.exposeInMainWorld("openNewWindow", {
   databaseClient: () => {

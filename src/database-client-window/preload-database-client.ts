@@ -18,9 +18,7 @@ declare global {
   }
 }
 
-contextBridge.exposeInMainWorld("appInfo", {
-  windowType: WindowType.DatabaseClient,
-});
+contextBridge.exposeInMainWorld("windowType", WindowType.DatabaseClient);
 
 contextBridge.exposeInMainWorld("databaseApi", {
   connectAndStartPolling: async (connectionInfo: ConnectionInfo | null) => {

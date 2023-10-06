@@ -6,13 +6,9 @@ import { CircularProgress, CssVarsProvider, Sheet } from "@mui/joy";
 import MainWindow from "./main-window/MainWindow";
 import DatabaseClientWindow from "./database-client-window/DatabaseClientWindow";
 
-interface AppInfo {
-  windowType: WindowType;
-}
-
 declare global {
   interface Window {
-    appInfo: AppInfo;
+    windowType: WindowType;
   }
 }
 
@@ -20,7 +16,7 @@ const App: React.FC = () => {
   const [windowType, setWindowType] = useState<WindowType | null>(null);
 
   useEffect(() => {
-    setWindowType(window.appInfo.windowType);
+    setWindowType(window.windowType);
   }, []);
 
   let child = <CircularProgress />;
