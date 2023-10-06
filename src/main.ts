@@ -60,6 +60,8 @@ const createWindow = (windowType: AppWindowType) => {
 // Some APIs can only be used after this event occurs.
 app.on("ready", async () => {
   const databaseConnection = new DatabaseConnection(connectionInfo[0]);
+  await databaseConnection.knex.raw("DROP DATABASE IF EXISTS defaultdb");
+  await databaseConnection.knex.raw("CREATE DATABASE defaultdb");
   await databaseConnection.knex.raw(
     `ALTER DATABASE defaultdb PRIMARY REGION "us-west1"`,
   );
