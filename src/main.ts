@@ -52,7 +52,7 @@ const createWindow = (windowType: AppWindowType) => {
     });
   }
 
-  appWindow.on("did-finish-load", () => {
+  appWindow.webContents.on("did-finish-load", () => {
     appWindow.webContents.send(
       IpcChannels.demoTableBeingQueried,
       demoTableBeingQueried,
