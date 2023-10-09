@@ -16,7 +16,7 @@ import LocalitySelector from "./LocalitySelector";
 
 const MainWindow: React.FC = () => {
   // Default true, so on hmr it doesn't get stuck
-  const [isDatabaseSetup, setIsDatabaseSetup] = useState(true);
+  const [isDatabaseSetup, setIsDatabaseSetup] = useState(false);
 
   const databaseInitializedEventHandler = useCallback(
     (event: DatabaseInitializedEvent) => {
