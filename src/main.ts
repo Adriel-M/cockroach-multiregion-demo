@@ -9,7 +9,7 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-let demoTableBeingQueried = DemoTable.ColorRegionalEuWest1;
+let demoTableBeingQueried = DemoTable.ColorRegionalUsEast1;
 const windows: BrowserWindow[] = [];
 
 const createWindow = (windowType: AppWindowType) => {
