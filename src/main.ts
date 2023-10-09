@@ -2,11 +2,15 @@ import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
 import * as fs from "fs";
 import IpcChannels from "./IpcChannels";
+import { DemoTable } from "./database/DemoTable";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
+
+let demoTableBeingQueried = DemoTable.ColorRegionalEuWest1;
+const windows: BrowserWindow[] = [];
 
 const createWindow = (windowType: AppWindowType) => {
   // Create the browser window.
@@ -38,7 +42,7 @@ const createWindow = (windowType: AppWindowType) => {
   });
 
   // stop the watch when the window is closed
-  appWindow.on("close", () => {
+  appWindow.on("closed", () => {
     preloadFileWatcher.close();
   });
 
@@ -48,9 +52,32 @@ const createWindow = (windowType: AppWindowType) => {
     });
   }
 
+  appWindow.on("did-finish-load", () => {
+    appWindow.webContents.send(
+      IpcChannels.demoTableBeingQueried,
+      demoTableBeingQueried,
+    );
+  });
+
+  // Track window instances so we can broadcast an event when the demo table changes
+  windows.push(appWindow);
+  appWindow.on("closed", () => {
+    const i = windows.indexOf(appWindow);
+    if (i > -1) {
+      windows.splice(i, 1);
+    }
+  });
+
   // Open the DevTools.
   appWindow.webContents.openDevTools();
 };
+
+ipcMain.on(IpcChannels.demoTableChanged, (_, demoTable: DemoTable) => {
+  demoTableBeingQueried = demoTable;
+  windows.forEach((window) => {
+    window.webContents.send(IpcChannels.demoTableBeingQueried, demoTable);
+  });
+});
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.

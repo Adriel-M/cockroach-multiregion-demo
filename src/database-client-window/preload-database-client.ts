@@ -1,9 +1,11 @@
 // See the Electron documentation for details on how to use preload scripts:
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 
-import { contextBridge } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 import { ConnectionInfo, WindowType } from "../Types";
 import DatabaseClientDatabaseManager from "./DatabaseClientDatabaseManager";
+import IpcChannels from "../IpcChannels";
+import { DemoTable } from "../database/DemoTable";
 
 interface DatabaseApi {
   connectAndStartPolling: (connectionUrl: ConnectionInfo | null) => void;
@@ -36,4 +38,8 @@ contextBridge.exposeInMainWorld("databaseApi", {
   toggleFollowerReads: () => {
     DatabaseClientDatabaseManager.toggleFollowerReads();
   },
+});
+
+ipcRenderer.on(IpcChannels.demoTableBeingQueried, (_, demoTable: DemoTable) => {
+  DatabaseClientDatabaseManager.demoTable = demoTable;
 });

@@ -10,6 +10,7 @@ import { ConnectionInfo } from "../Types";
 import { measureTimeMillis } from "../Utils";
 import Queries from "../database/Queries";
 import { dispatchEvent } from "../events/EventApi";
+import { DemoTable } from "../database/DemoTable";
 
 const DELAY_MS_BETWEEN_POLL = 100;
 
@@ -17,6 +18,7 @@ class DatabaseClientDatabaseManager {
   private databaseConnection: DatabaseConnection | null = null;
   private pollingFunctions: { [key: string]: NodeJS.Timeout } = {};
   isFollowerReadsEnabled: boolean;
+  demoTable: DemoTable = DemoTable.ColorRegionalUsEast1;
 
   toggleFollowerReads() {
     this.isFollowerReadsEnabled = !this.isFollowerReadsEnabled;
@@ -55,6 +57,7 @@ class DatabaseClientDatabaseManager {
         const [colorRow, millis] = await measureTimeMillis(async () => {
           return await Queries.getColorRow(
             this.databaseConnection.knex,
+            this.demoTable,
             this.isFollowerReadsEnabled,
           );
         });
@@ -66,7 +69,11 @@ class DatabaseClientDatabaseManager {
 
   async updateColor(color: string) {
     const [, millis] = await measureTimeMillis(async () => {
-      return await Queries.updateColor(this.databaseConnection.knex, color);
+      return await Queries.updateColor(
+        this.databaseConnection.knex,
+        this.demoTable,
+        color,
+      );
     });
     dispatchEvent(new UpdateLatencyEvent(millis));
   }

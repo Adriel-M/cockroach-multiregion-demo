@@ -1,6 +1,7 @@
 import DatabaseConnection from "../database/DatabaseConnection";
 
 import connectionInfo from "../connectionInfo.json";
+import { demoTables } from "../database/DemoTable";
 
 class MainWindowDatabaseManager {
   private databaseConnection: DatabaseConnection;
@@ -13,23 +14,20 @@ class MainWindowDatabaseManager {
     await this.databaseConnection.knex.raw("DROP DATABASE IF EXISTS defaultdb");
     await this.databaseConnection.knex.raw("CREATE DATABASE defaultdb");
     await this.databaseConnection.knex.raw(
-      `ALTER DATABASE defaultdb PRIMARY REGION "us-west1"`,
+      `ALTER DATABASE defaultdb PRIMARY REGION "us-east1"`,
+    );
+    await this.databaseConnection.knex.raw(
+      `ALTER DATABASE defaultdb ADD REGION "us-west1"`,
     );
     await this.databaseConnection.knex.raw(
       `ALTER DATABASE defaultdb ADD REGION "europe-west1"`,
     );
-    await this.databaseConnection.knex.raw("DROP TABLE IF EXISTS color");
-    await this.databaseConnection.knex.raw(
-      `
-      CREATE TABLE color(
-          id INT PRIMARY KEY,
-          color VARCHAR(10) NOT NULL
-      );
-      `,
-    );
-    await this.databaseConnection
-      .knex("color")
-      .insert({ id: 1, color: "primary" });
+    for (const demoTable of demoTables) {
+      await this.databaseConnection.knex.raw(demoTable.toCreateTableSql());
+      await this.databaseConnection
+        .knex(demoTable.tableName)
+        .insert({ id: 1, color: "primary" });
+    }
   }
 }
 
