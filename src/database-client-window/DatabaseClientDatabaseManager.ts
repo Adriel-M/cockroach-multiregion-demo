@@ -17,7 +17,7 @@ const DELAY_MS_BETWEEN_POLL = 100;
 class DatabaseClientDatabaseManager {
   private databaseConnection: DatabaseConnection | null = null;
   private pollingFunctions: { [key: string]: NodeJS.Timeout } = {};
-  isFollowerReadsEnabled: boolean;
+  isFollowerReadsEnabled: boolean = false;
   demoTable: DemoTable = DemoTable.ColorRegionalUsEast1;
 
   toggleFollowerReads() {
@@ -28,6 +28,7 @@ class DatabaseClientDatabaseManager {
   async setupAndStartDatabaseConnection(connectionInfo: ConnectionInfo) {
     await this.preSwitchConnection();
     this.databaseConnection = new DatabaseConnection(connectionInfo);
+    dispatchEvent(new FollowerReadChangedEvent(this.isFollowerReadsEnabled));
   }
 
   private async preSwitchConnection() {
