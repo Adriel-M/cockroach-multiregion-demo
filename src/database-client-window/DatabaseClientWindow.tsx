@@ -2,12 +2,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Sheet, Stack } from "@mui/joy";
 import { ConnectionInfo } from "../Types";
 import ConnectionSelector from "./ConnectionSelector";
-import ColorSelector from "./ColorSelector";
 import ColorDisplay from "./ColorDisplay";
-import QueryMetrics from "./QueryMetrics";
 import { addEventListener, removeEventListener } from "../events/EventApi";
 import { FollowerReadChangedEvent } from "../events/CustomEvents";
-import QueryDisplay from "./QueryDisplay";
+import QueryInfo from "./QueryInfo";
 
 const DatabaseClientWindow: React.FC = () => {
   const [connectionInfo, setConnectionInfo] = useState<ConnectionInfo | null>(
@@ -50,9 +48,7 @@ const DatabaseClientWindow: React.FC = () => {
         {connectionInfo ? (
           <Sheet>
             <ColorDisplay />
-            <ColorSelector />
-            <QueryMetrics />
-            <QueryDisplay />
+            <QueryInfo />
           </Sheet>
         ) : null}
       </Stack>

@@ -5,8 +5,8 @@ const colors: string[] = ["danger", "success", "primary"];
 
 const ColorSelector: React.FC = () => {
   return (
-    <Card>
-      <Typography level="h3">Color Selector</Typography>
+    <Card variant="plain">
+      <Typography level="title-lg">Update Color</Typography>
       <Stack
         direction="row"
         justifyContent="center"

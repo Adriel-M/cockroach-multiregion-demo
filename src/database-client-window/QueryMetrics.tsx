@@ -32,21 +32,18 @@ const QueryMetrics: React.FC = () => {
     };
   }, [updateLatencyEventHandler]);
   return (
-    <Card>
-      <Typography level="h3">Query Latency</Typography>
-      <Stack
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        spacing={2}
-      >
-        <MetricDisplay title="Select Latency" value={`${selectLatency}ms`} />
-        <MetricDisplay
-          title="Update Latency"
-          value={updateLatency ? `${updateLatency}ms` : ""}
-        />
-      </Stack>
-    </Card>
+    <Stack
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+      spacing={2}
+    >
+      <MetricDisplay title="Select Latency" value={`${selectLatency}ms`} />
+      <MetricDisplay
+        title="Update Latency"
+        value={updateLatency ? `${updateLatency}ms` : ""}
+      />
+    </Stack>
   );
 };
 

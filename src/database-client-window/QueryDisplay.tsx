@@ -40,18 +40,15 @@ const QueryDisplay: React.FC = () => {
   }, [updateQueryEventHandler]);
 
   return (
-    <Card>
-      <Typography level="h3">Queries</Typography>
-      <Stack
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        spacing={2}
-      >
-        <Query title="Select Query" value={pollingQuery} />
-        <Query title="Update Query" value={updateQuery} />
-      </Stack>
-    </Card>
+    <Stack
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+      spacing={2}
+    >
+      <Query title="Select Query" value={pollingQuery} />
+      <Query title="Update Query" value={updateQuery} />
+    </Stack>
   );
 };
 
