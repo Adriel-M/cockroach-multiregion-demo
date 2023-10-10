@@ -19,7 +19,7 @@ const ColorDisplay: React.FC = () => {
   }, [colorChangedEventHandler]);
   return (
     <Card>
-      <Typography level="h1">The Current Color is</Typography>
+      <Typography level="h3">The Current Color is</Typography>
       <Card
         color={currentColor}
         invertedColors={false}

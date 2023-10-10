@@ -33,7 +33,7 @@ const QueryMetrics: React.FC = () => {
   }, [updateLatencyEventHandler]);
   return (
     <Card>
-      <Typography level="h1">Query Latency</Typography>
+      <Typography level="h3">Query Latency</Typography>
       <Stack
         direction="row"
         justifyContent="center"
@@ -62,7 +62,7 @@ const MetricDisplay: React.FC<{ title: string; value: string }> = ({
       }}
     >
       <CardContent sx={{ alignItems: "center", textAlign: "center" }}>
-        <Typography level="h1">{title}</Typography>
+        <Typography level="h4">{title}</Typography>
         <Typography level="body-lg">{value}</Typography>
       </CardContent>
     </Card>
