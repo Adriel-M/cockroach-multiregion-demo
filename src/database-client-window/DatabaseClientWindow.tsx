@@ -55,7 +55,6 @@ const DatabaseClientWindow: React.FC = () => {
             <QueryDisplay />
           </Sheet>
         ) : null}
-        <div>Current Connection Url: {connectionInfo?.port}</div>
       </Stack>
     </Sheet>
   );

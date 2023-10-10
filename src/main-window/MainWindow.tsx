@@ -47,11 +47,9 @@ const MainWindow: React.FC = () => {
               <img src={map} loading="lazy" alt="" />
             </AspectRatio>
             <CardContent orientation="horizontal">
-              <div>
-                <Typography level="body-xs">
-                  Open a new Database Client:
-                </Typography>
-              </div>
+              <Typography level="body-xs">
+                Open a new Database Client:
+              </Typography>
               <Button
                 variant="solid"
                 size="md"
