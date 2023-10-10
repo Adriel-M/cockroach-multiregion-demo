@@ -1,4 +1,4 @@
-import { Card, Grid, Typography } from "@mui/joy";
+import { Card, Typography } from "@mui/joy";
 import React, { useCallback, useEffect, useState } from "react";
 import { addEventListener, removeEventListener } from "../events/EventApi";
 import { ColorChangedEvent } from "../events/CustomEvents";
@@ -20,13 +20,12 @@ const ColorDisplay: React.FC = () => {
   return (
     <Card>
       <Typography level="h1">The Current Color is</Typography>
-      <Card color={currentColor} invertedColors={false} variant="solid">
-        <Grid display="flex" justifyContent="center">
-          <Typography level="h1" textColor="white">
-            {currentColor}
-          </Typography>
-        </Grid>
-      </Card>
+      <Card
+        color={currentColor}
+        invertedColors={false}
+        variant="solid"
+        sx={{ minHeight: 100 }}
+      />
     </Card>
   );
 };
