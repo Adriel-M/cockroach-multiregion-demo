@@ -15,14 +15,13 @@ const ConnectionSelector: React.FC<Props> = ({
 }) => {
   return (
     <Card>
-      <Typography level="h1">Connection Selection</Typography>
-      <Typography level="h4">Choose a region to connect to</Typography>
       <Stack
         direction="row"
         justifyContent="center"
         alignItems="center"
         spacing={2}
       >
+        <Typography level="h4">Choose a region</Typography>
         <Select
           placeholder="Choose one..."
           onChange={(_, newValue: ConnectionInfo | null) =>
