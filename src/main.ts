@@ -68,8 +68,9 @@ const createWindow = (windowType: AppWindowType) => {
     }
   });
 
+  // Uncomment during development
   // Open the DevTools.
-  appWindow.webContents.openDevTools();
+  // appWindow.webContents.openDevTools();
 };
 
 ipcMain.on(IpcChannels.demoTableChanged, (_, demoTable: DemoTable) => {
