@@ -29,7 +29,7 @@ An electron app to showcase various locality modes of CockroachDB.
 ### Main Window
 ![Main Window](screenshots/main.png)
 ### Client Window
-![img.png](screenshots/client.png)
+![Client Window](screenshots/client.png)
 
 ## Notes
 ### CockroachDB demo mode
