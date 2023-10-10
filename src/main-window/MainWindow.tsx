@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/joy";
 
-import map from "../../assets/map.png";
+import map from "../assets/map.png";
 import { addEventListener, removeEventListener } from "../events/EventApi";
 import { DatabaseInitializedEvent } from "../events/CustomEvents";
 import LocalitySelector from "./LocalitySelector";
