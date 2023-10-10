@@ -2,8 +2,10 @@ import DatabaseConnection from "../database/DatabaseConnection";
 import {
   ColorChangedEvent,
   FollowerReadChangedEvent,
+  PollingQueryChangedEvent,
   SelectLatencyEvent,
   UpdateLatencyEvent,
+  UpdateQueryChangedEvent,
 } from "../events/CustomEvents";
 import { v4 as uuidv4 } from "uuid";
 import { ConnectionInfo } from "../Types";
@@ -55,21 +57,24 @@ class DatabaseClientDatabaseManager {
 
     this.schedulePollingFunction(async () => {
       if (this.databaseConnection && this.databaseConnection.started) {
-        const [colorRow, millis] = await measureTimeMillis(async () => {
-          return await Queries.getColorRow(
-            this.databaseConnection.knex,
-            this.demoTable,
-            this.isFollowerReadsEnabled,
-          );
-        });
-        dispatchEvent(new ColorChangedEvent(colorRow?.color));
+        const [{ results, queryString }, millis] = await measureTimeMillis(
+          async () => {
+            return await Queries.getColorRow(
+              this.databaseConnection.knex,
+              this.demoTable,
+              this.isFollowerReadsEnabled,
+            );
+          },
+        );
+        dispatchEvent(new ColorChangedEvent(results?.color));
         dispatchEvent(new SelectLatencyEvent(millis));
+        dispatchEvent(new PollingQueryChangedEvent(queryString));
       }
     }, DELAY_MS_BETWEEN_POLL);
   }
 
   async updateColor(color: string) {
-    const [, millis] = await measureTimeMillis(async () => {
+    const [{ queryString }, millis] = await measureTimeMillis(async () => {
       return await Queries.updateColor(
         this.databaseConnection.knex,
         this.demoTable,
@@ -77,6 +82,7 @@ class DatabaseClientDatabaseManager {
       );
     });
     dispatchEvent(new UpdateLatencyEvent(millis));
+    dispatchEvent(new UpdateQueryChangedEvent(queryString));
   }
 }
 

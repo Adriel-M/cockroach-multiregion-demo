@@ -7,6 +7,7 @@ import ColorDisplay from "./ColorDisplay";
 import QueryMetrics from "./QueryMetrics";
 import { addEventListener, removeEventListener } from "../events/EventApi";
 import { FollowerReadChangedEvent } from "../events/CustomEvents";
+import QueryDisplay from "./QueryDisplay";
 
 const DatabaseClientWindow: React.FC = () => {
   const [connectionInfo, setConnectionInfo] = useState<ConnectionInfo | null>(
@@ -47,11 +48,12 @@ const DatabaseClientWindow: React.FC = () => {
           isFollowerReadsEnabled={isFollowerReadsEnabled}
         />
         {connectionInfo ? (
-          <>
+          <Sheet>
             <ColorDisplay />
             <ColorSelector />
             <QueryMetrics />
-          </>
+            <QueryDisplay />
+          </Sheet>
         ) : null}
         <div>Current Connection Url: {connectionInfo?.port}</div>
       </Stack>

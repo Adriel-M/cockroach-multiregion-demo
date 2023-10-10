@@ -32,3 +32,17 @@ export class DatabaseInitializedEvent extends CustomEvent<boolean> {
     super(DatabaseInitializedEvent.channel, { detail: databaseInitialized });
   }
 }
+
+export class PollingQueryChangedEvent extends CustomEvent<string> {
+  static channel = "polling-query-changed";
+  constructor(pollingQuery: string) {
+    super(PollingQueryChangedEvent.channel, { detail: pollingQuery });
+  }
+}
+
+export class UpdateQueryChangedEvent extends CustomEvent<string> {
+  static channel = "update-query-changed";
+  constructor(updateQuery: string) {
+    super(UpdateQueryChangedEvent.channel, { detail: updateQuery });
+  }
+}
