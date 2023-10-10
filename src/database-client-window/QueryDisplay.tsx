@@ -68,7 +68,9 @@ const Query: React.FC<{ title: string; value: string }> = ({
     >
       <CardContent sx={{ alignItems: "center", textAlign: "center" }}>
         <Typography level="h1">{title}</Typography>
-        <Typography level="body-lg">{value}</Typography>
+        <Typography level="body-lg" sx={{ fontFamily: "monospace" }}>
+          {value}
+        </Typography>
       </CardContent>
     </Card>
   );
