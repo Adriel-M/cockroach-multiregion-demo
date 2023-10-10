@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Card, CardContent, Grid, Typography } from "@mui/joy";
+import { Card, CardContent, Stack, Typography } from "@mui/joy";
 import { SelectLatencyEvent, UpdateLatencyEvent } from "../events/CustomEvents";
 import { addEventListener, removeEventListener } from "../events/EventApi";
 
@@ -33,16 +33,19 @@ const QueryMetrics: React.FC = () => {
   }, [updateLatencyEventHandler]);
   return (
     <Card>
-      <Typography>Query Metrics</Typography>
-      <Grid container spacing={2} sx={{ width: "100%" }}>
-        <Grid xs={6} md>
-          <MetricDisplay title="Select Latency" value={`${selectLatency}ms`} />
-          <MetricDisplay
-            title="Update Latency"
-            value={updateLatency ? `${updateLatency}ms` : ""}
-          />
-        </Grid>
-      </Grid>
+      <Typography level="h1">Query Latency</Typography>
+      <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+      >
+        <MetricDisplay title="Select Latency" value={`${selectLatency}ms`} />
+        <MetricDisplay
+          title="Update Latency"
+          value={updateLatency ? `${updateLatency}ms` : ""}
+        />
+      </Stack>
     </Card>
   );
 };
@@ -55,6 +58,7 @@ const MetricDisplay: React.FC<{ title: string; value: string }> = ({
     <Card
       sx={{
         width: 300,
+        minHeight: 75,
       }}
     >
       <CardContent sx={{ alignItems: "center", textAlign: "center" }}>

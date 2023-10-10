@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Card, CardContent, Typography } from "@mui/joy";
+import { Card, CardContent, Stack, Typography } from "@mui/joy";
 import {
   PollingQueryChangedEvent,
   UpdateQueryChangedEvent,
@@ -41,8 +41,16 @@ const QueryDisplay: React.FC = () => {
 
   return (
     <Card>
-      <Query title="Select Query" value={pollingQuery} />
-      <Query title="Update Query" value={updateQuery} />
+      <Typography level="h1">Queries</Typography>
+      <Stack
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        spacing={2}
+      >
+        <Query title="Select Query" value={pollingQuery} />
+        <Query title="Update Query" value={updateQuery} />
+      </Stack>
     </Card>
   );
 };
@@ -55,6 +63,7 @@ const Query: React.FC<{ title: string; value: string }> = ({
     <Card
       sx={{
         width: 300,
+        minHeight: 100,
       }}
     >
       <CardContent sx={{ alignItems: "center", textAlign: "center" }}>
