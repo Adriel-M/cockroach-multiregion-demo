@@ -22,7 +22,9 @@ const ColorDisplay: React.FC = () => {
       <Typography level="h1">The Current Color is</Typography>
       <Card color={currentColor} invertedColors={false} variant="solid">
         <Grid display="flex" justifyContent="center">
-          <Typography level="h1">{currentColor}</Typography>
+          <Typography level="h1" textColor="white">
+            {currentColor}
+          </Typography>
         </Grid>
       </Card>
     </Card>
