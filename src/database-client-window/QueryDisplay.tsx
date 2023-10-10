@@ -63,7 +63,7 @@ const Query: React.FC<{ title: string; value: string }> = ({
     <Card
       sx={{
         width: 300,
-        minHeight: 100,
+        minHeight: 150,
       }}
     >
       <CardContent sx={{ alignItems: "center", textAlign: "center" }}>
